@@ -31,17 +31,14 @@ const mage = {
   };
 
 createBtn.addEventListener('click', () => {
-    mage.healthPoints = mageHpInput.value;
-    mage.intelligence = mageIntInput.value;
-    mage.mana = mageMpInput.value;
-    warrior.healthPoints = warriorHpInput.value;
-    warrior.strength = warriorStrInput.value;
-    warrior.weaponDmg = warriorWeaponInput.value;
-    dragon.healthPoints = dragonHpInput.value;
-    dragon.strength = dragonStrInput.value;
-    console.log(mage);
-    console.log(warrior);
-    console.log(dragon);
+    mage.healthPoints = parseInt(mageHpInput.value);
+    mage.intelligence = parseInt(mageIntInput.value);
+    mage.mana = parseInt(mageMpInput.value);
+    warrior.healthPoints = parseInt(warriorHpInput.value);
+    warrior.strength = parseInt(warriorStrInput.value);
+    warrior.weaponDmg = parseInt(warriorWeaponInput.value);
+    dragon.healthPoints = parseInt(dragonHpInput.value);
+    dragon.strength = parseInt(dragonStrInput.value);
 })
   
   const battleMembers = { mage, warrior, dragon };
