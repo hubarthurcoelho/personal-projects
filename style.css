@@ -1,0 +1,17 @@
+#settings {
+    display: flex;
+    flex-direction: column;
+}
+.characters {
+    display: flex;
+    flex-direction: column;
+}
+#header {
+    text-align: center;
+}
+#allCharacters {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin: auto;
+}
