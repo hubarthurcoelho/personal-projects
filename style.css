@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 #settings {
     display: flex;
     flex-direction: column;
@@ -5,13 +10,53 @@
 .characters {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 #header {
     text-align: center;
+    margin-top: 10px;
 }
 #allCharacters {
     display: flex;
     justify-content: space-around;
     text-align: center;
-    margin: auto;
+    
+}
+.buttons {
+    margin: 5px;
+    max-width: 150px;
+    padding: 5px;
+    background-color: rgba(241, 193, 119, 0.822);
+    border-radius: 20%;
+    border: 0ch;
+    font-family: MedievalSharp;
+    font-weight: 400;
+    font-size: 17px;
+}
+#btnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+input {
+    max-width: 45px;
+    background-color: rgba(241, 193, 119, 0.822);
+}
+body {
+    background-color: blanchedalmond;
+    font-family: MedievalSharp;
+    background-image: url('http://cms.dragonfable.com/df/images/book3surewood.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: aliceblue;
+}
+h3 {
+    margin: 10px;
+}
+#title {
+    color: rgb(122, 8, 8);
+    font-weight: bolder;
+    font-size: 60px;
 }

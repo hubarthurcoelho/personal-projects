@@ -5,43 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dragon's Pit</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=MedievalSharp"/>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header id="header">
-      <h1>DRAGON'S PIT</h1>
+      <h1 id="title">DRAGON'S PIT</h1>
       <h3>Choose your characters settings:</h3>
     </header>
     <section id="settings">
-      <div id="allCharacters">
+      <section id="allCharacters">
       <div class="characters">
         <h1>Mage:</h1>
         <label for="mageHp"> Health Points:</label>
-        <input id="mageHp" type="number" min="0">
+        <input id="mageHp" type="number" min="0" max="999">
         <label for="mageInt"> Inteligence:</label>
-            <input id="mageInt" type="number" min="0">
+            <input id="mageInt" type="number" min="0" max="999">
         <label for="mageMp"> Mana Points:</label>
-            <input id="mageMp" type="number" min="0">
+            <input id="mageMp" type="number" min="0" max="999">
       </div>
       <div class="characters">
        <h1>Warrior:</h1>
         <label for="warriorHp"> Health Points:</label>
-        <input id="warriorHp" type="number" min="0">
+        <input id="warriorHp" type="number" min="0" max="999">
         <label for="warriorStr"> Strength:</label>
-            <input id="warriorStr" type="number" min="0">
+            <input id="warriorStr" type="number" min="0" max="3">
         <label for="warriorWeapon"> Weapon Damage:</label>
-            <input id="warriorWeapon" type="number" min="0">
+            <input id="warriorWeapon" type="number" min="0" max="3">
       </div>
       <div class="characters">
         <h1>Dragon:</h1>
         <label for="dragonHp"> Health Points:</label>
-            <input id="dragonHp" type="number" min="0">
+            <input id="dragonHp" type="number" min="0" max="999">
         <label for="dragonStr"> Strength:</label>
-            <input id="dragonStr" type="number" min="0">
+            <input id="dragonStr" type="number" min="0" max="999">
+      </div>
+    </section>
+    <div id="btnContainer">
+      <button id="createBtn" class="buttons">Create Characters</button>
+      <div>
+        <button id="startBtn" class="buttons">Initiate Battle!</button>
+       <button id="mageTurn" class="buttons">Mage Turn</button>
+       <button id="warriorTurn" class="buttons">Warrior Turn</button>
+       <button id="dragonTurn" class="buttons">Dragon Turn</button>
       </div>
     </div>
-      <button id="createBtn">Create Characters</button>
-      <button id="startBtn">Initiate Battle!</button>
     </section>
     <section id="battleInfo"></section>
 
