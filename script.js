@@ -1,15 +1,3 @@
-const mageHpInput = document.getElementById('mageHp');
-const mageMpInput = document.getElementById('mageMp');
-const mageIntInput = document.getElementById('mageInt');
-const warriorHpInput = document.getElementById('warriorHp');
-const warriorStrInput = document.getElementById('warriorStr');
-const warriorWeaponInput = document.getElementById('warriorWeapon');
-const dragonHpInput = document.getElementById('dragonHp');
-const dragonStrInput = document.getElementById('dragonStr');
-const battleInfo = document.getElementById('battleInfo');
-const createBtn = document.getElementById('createBtn');
-const startBtn = document.getElementById('startBtn');
-
 const mage = {
     healthPoints: 130,
     intelligence: 45,
@@ -29,6 +17,67 @@ const mage = {
     strength: 50,
     damage: undefined,
   };
+const mageHpInput = document.getElementById('mageHp');
+const mageMpInput = document.getElementById('mageMp');
+const mageIntInput = document.getElementById('mageInt');
+const warriorHpInput = document.getElementById('warriorHp');
+const warriorStrInput = document.getElementById('warriorStr');
+const warriorWeaponInput = document.getElementById('warriorWeapon');
+const dragonHpInput = document.getElementById('dragonHp');
+const dragonStrInput = document.getElementById('dragonStr');
+mageHpInput.defaultValue = mage.healthPoints;
+mageMpInput.defaultValue = mage.mana;
+mageIntInput.defaultValue = mage.intelligence;
+warriorHpInput.defaultValue = warrior.healthPoints;
+warriorStrInput.defaultValue = warrior.strength;
+warriorWeaponInput.defaultValue = warrior.weaponDmg;
+dragonHpInput.defaultValue = dragon.healthPoints;
+dragonStrInput.defaultValue = dragon.strength;
+const mageDiv = document.getElementById('mage');
+const warriorDiv = document.getElementById('warrior');
+const dragonDiv = document.getElementById('dragon');
+const mageDmgTaken = document.getElementById('mageDmgTaken');
+const warriorDmgTaken = document.getElementById('warriorDmgTaken');
+const dragonDmgTaken = document.getElementById('dragonDmgTaken');
+const mageImg = document.getElementById('mageImg');
+const warriorImg = document.getElementById('warriorImg');
+const dragonImg = document.getElementById('dragonImg');
+const MageImgHp = document.getElementById('MageImgHp');
+const MageImgMp = document.getElementById('MageImgMp');
+const warriorImgHp = document.getElementById('warriorImgHp');
+const dragonImgHp = document.getElementById('dragonImgHp');
+
+const battleInfo = document.getElementById('battleInfo');
+const createBtn = document.getElementById('createBtn');
+const startBtn = document.getElementById('startBtn');
+const mageTurnBtn = document.getElementById('mageTurn');
+const warriorTurnBtn = document.getElementById('warriorTurn');
+const dragonTurnBtn = document.getElementById('dragonTurn');
+
+  function addImages() {
+    if (mage.healthPoints > 0) {
+      mageImg.src = './images/mage.png';
+    }
+    if (warrior.healthPoints > 0) {
+      warriorImg.src = './images/warrior.png';
+    }
+    if (dragon.healthPoints > 0) {
+      dragonImg.src = './images/dragon.png';
+    }
+  };
+
+  function addVisualHpMp() {
+    if (mage.healthPoints > 0) {
+      MageImgHp.innerText = `${mage.healthPoints}HP`;
+      MageImgMp.innerText = `${mage.mana}MP`;
+    }
+    if (warrior.healthPoints > 0) {
+      warriorImgHp.innerText = `${warrior.healthPoints}HP`;
+    }
+    if (dragon.healthPoints > 0) {
+      dragonImgHp.innerText = `${dragon.healthPoints}HP`;
+    }
+  }
 
 createBtn.addEventListener('click', () => {
     mage.healthPoints = parseInt(mageHpInput.value);
@@ -39,6 +88,8 @@ createBtn.addEventListener('click', () => {
     warrior.weaponDmg = parseInt(warriorWeaponInput.value);
     dragon.healthPoints = parseInt(dragonHpInput.value);
     dragon.strength = parseInt(dragonStrInput.value);
+    addImages();
+    addVisualHpMp();
 })
   
   const battleMembers = { mage, warrior, dragon };
@@ -142,3 +193,18 @@ startBtn.addEventListener('click', () => {
     }
 });
 
+mageTurnBtn.addEventListener('click', () => {
+  mageImg.src = './images/mageAttacking.png';
+  setTimeout(() => {
+    mageImg.src = './images/mage.png';
+    dragonImg.src = './images/dragonTakingDmgFromMage.png';
+    gameActions.mageTurn(mageDmgAndMana);
+    console.log(mage.mana);
+    console.log(dragon.healthPoints);
+    MageImgHp.innerText = `${mage.healthPoints}HP`;
+    MageImgMp.innerText = `${mage.mana}MP`;
+    dragonImgHp.innerText = `${dragon.healthPoints}HP`;
+    dragonDmgTaken.innerText = `${mage.damage} damage!`;
+  }, 1500);
+  setTimeout(() => dragonImg.src = './images/dragon.png', 3000);
+})
