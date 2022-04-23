@@ -231,8 +231,8 @@ function checkTurn() {
     warriorTurnBtn.disabled === true &&
     dragonTurnBtn.disabled === true
   ) {
-    mageTurnBtn.disabled = false;
-    warriorTurnBtn.disabled = false;
+    if(mage.healthPoints != 'dead') mageTurnBtn.disabled = false;
+    if(warrior.healthPoints != 'dead') warriorTurnBtn.disabled = false;
     dragonTurnBtn.disabled = false;
   }
 }
@@ -271,6 +271,10 @@ warriorTurnBtn.addEventListener('click', () => {
     dragonDmgTaken.innerText = `${warrior.damage} damage!`;
     dragonDmgTaken.style.opacity = 1;
   }, 700);
+  setTimeout(() => {
+    if (dragon.healthPoints > 0) dragonImg.src = './images/dragon.png';
+  }, 2000);
+
   setTimeout(checkSurvivors(), 2100);
   setTimeout(checkWinners(), 2100);
   warriorTurnBtn.disabled = true;
