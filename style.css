@@ -51,6 +51,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     color: aliceblue;
+    height: 100%;
+    width: 100%;
 }
 h3 {
     margin: 10px;
@@ -64,6 +66,7 @@ h3 {
     display: flex;
     justify-content: space-around;
     margin-top: 50px;
+    align-items: flex-end;
 }
 #goodGuys {
     display: flex;
@@ -75,8 +78,29 @@ h3 {
   flex-direction: column;
 }
 
-#dragon {
+#dragon, #mage, #warrior {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+#mageImg, #warriorImg, #warriorAttacking {
+    width: 70%;
+    height: 60%;
+}
+#dragonImg {
+    width: 99%;
+    height: 99%;
+}
+#dragon {
+    width: 35%;
+    height: 45%;
+}
+#fire {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    width: 50%;
+    height: 30%;
+    opacity: 0;
+    
 }

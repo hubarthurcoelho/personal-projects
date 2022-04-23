@@ -53,6 +53,7 @@ const startBtn = document.getElementById('startBtn');
 const mageTurnBtn = document.getElementById('mageTurn');
 const warriorTurnBtn = document.getElementById('warriorTurn');
 const dragonTurnBtn = document.getElementById('dragonTurn');
+const dragonFire = document.getElementById('fire');
 
   function addImages() {
     if (mage.healthPoints > 0) {
@@ -61,9 +62,7 @@ const dragonTurnBtn = document.getElementById('dragonTurn');
     if (warrior.healthPoints > 0) {
       warriorImg.src = './images/warrior.png';
     }
-    if (dragon.healthPoints > 0) {
-      dragonImg.src = './images/dragon.png';
-    }
+    dragonImg.src = './images/dragon.png';
   };
 
   function addVisualHpMp() {
@@ -96,7 +95,7 @@ createBtn.addEventListener('click', () => {
 
 
   
-  const DragonDmg = () => Math.floor(Math.random() * (dragon.strength - 15)) + 15;
+  const DragonDmg = () => Math.floor(Math.random() * (dragon.strength )) + 15;
   const warriorDmg = () => Math.floor(Math.random() * ((warrior.weaponDmg * warrior.strength) - warrior.strength)) + warrior.strength;
   
   const mageDmgAndMana = (mage) => {
@@ -134,10 +133,12 @@ createBtn.addEventListener('click', () => {
           return MageTurnInfo;
       },
       dragonTurn: (dragonDamage) => {
-          let dragonHit = dragonDamage();
-          mage.healthPoints -= dragonHit;
-          warrior.healthPoints -= dragonHit;
-          dragon.damage = dragonHit;
+          let dragonHitMage = dragonDamage();
+          let dragonHitWarrior = dragonDamage();
+          mage.healthPoints -= dragonHitMage;
+          warrior.healthPoints -= dragonHitWarrior;
+          dragon.damage = dragonHitMage;
+          dragon.damageWarrior = dragonHitWarrior;
           if (mage.healthPoints <= 0 && warrior.healthPoints <= 0) return `The dragon slaughtered the party!`
           if (mage.healthPoints <= 0) return `The dragon dealt ${dragon.damage} damage to the party! 
           The mage is dead, and the warrior has ${warrior.healthPoints}!`
@@ -197,14 +198,54 @@ mageTurnBtn.addEventListener('click', () => {
   mageImg.src = './images/mageAttacking.png';
   setTimeout(() => {
     mageImg.src = './images/mage.png';
-    dragonImg.src = './images/dragonTakingDmgFromMage.png';
+    dragonImg.src = './images/dragonTakingDmgFromMageFinal.png';
     gameActions.mageTurn(mageDmgAndMana);
-    console.log(mage.mana);
-    console.log(dragon.healthPoints);
     MageImgHp.innerText = `${mage.healthPoints}HP`;
     MageImgMp.innerText = `${mage.mana}MP`;
     dragonImgHp.innerText = `${dragon.healthPoints}HP`;
     dragonDmgTaken.innerText = `${mage.damage} damage!`;
-  }, 1500);
-  setTimeout(() => dragonImg.src = './images/dragon.png', 3000);
+  }, 700);
+  setTimeout(() => dragonImg.src = './images/dragon.png', 2000);
+})
+
+warriorTurnBtn.addEventListener('click', () => {
+    warriorImg.src = './images/warriorAttackBeise.png';
+    dragonImg.src = './images/dragonbeise.png';
+  setTimeout(() => {
+    dragonImg.src = './images/dragon.png';
+    warriorImg.src = './images/warrior.png';
+    gameActions.warriorTurn(warriorDmg);
+    warriorImgHp.innerText = `${warrior.healthPoints}HP`;
+    dragonImgHp.innerText = `${dragon.healthPoints}HP`;
+    dragonDmgTaken.innerText = `${warrior.damage} damage!`;
+  }, 700)
+})
+
+ function baforada(timer, opacit) {
+  setTimeout(() => dragonFire.style.opacity = opacit, timer);
+}
+dragonTurnBtn.addEventListener('click', () => {
+  dragonImg.src = './images/esre.png';
+  mageImg.src = './images/mageTakingDmg.png';
+  warriorImg.src = './images/warriorTakingDmg.png';
+  // warriorImg.src = './images';
+  // mageimg.src = './images';
+  let timer = 100;
+  let opacity = 1;
+  for (let index = 0; index < 15; index++) {
+    baforada(timer, opacity);
+    opacity -= 0.1;
+    timer += 100;
+    console.log(timer, opacity);
+  }
+  setTimeout(() => {
+    dragonImg.src = './images/dragon.png';
+    warriorImg.src = './images/warrior.png';
+    mageImg.src = './images/mage.png';
+    gameActions.dragonTurn(DragonDmg);
+    warriorImgHp.innerText = `${warrior.healthPoints}HP`;
+    MageImgHp.innerText = `${mage.healthPoints}HP`;
+    mageDmgTaken.innerText = `${dragon.damage} damage!`;
+    warriorDmgTaken.innerText = `${dragon.damageWarrior} damage!`;
+  }, 1500)
 })
