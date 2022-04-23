@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon's Pit</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=MedievalSharp"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+      <h1 id="title">DRAGON'S PIT</h1>
+      <h3>Choose your characters settings:</h3>
+    </header>
+    <section id="settings">
+      <section id="allCharacters">
+      <div class="characters">
+        <h1>Mage:</h1>
+        <label for="mageHp"> Health Points:</label>
+        <input id="mageHp" type="number" min="0" max="999">
+        <label for="mageInt"> Inteligence:</label>
+            <input id="mageInt" type="number" min="0" max="999">
+        <label for="mageMp"> Mana Points:</label>
+            <input id="mageMp" type="number" min="0" max="999">
+      </div>
+      <div class="characters">
+       <h1>Warrior:</h1>
+        <label for="warriorHp"> Health Points:</label>
+        <input id="warriorHp" type="number" min="0" max="999">
+        <label for="warriorStr"> Strength:</label>
+            <input id="warriorStr" type="number" min="0" max="3">
+        <label for="warriorWeapon"> Weapon Damage:</label>
+            <input id="warriorWeapon" type="number" min="0" max="3">
+      </div>
+      <div class="characters">
+        <h1>Dragon:</h1>
+        <label for="dragonHp"> Health Points:</label>
+            <input id="dragonHp" type="number" min="0" max="999">
+        <label for="dragonStr"> Strength:</label>
+            <input id="dragonStr" type="number" min="0" max="999">
+      </div>
+    </section>
+    <div id="btnContainer">
+      <div id="btnGameSettings">
+      <button id="createBtn" class="buttons">Create Characters</button>
+      </div>
+      <div>
+        <!-- <button id="startBtn" class="buttons">Initiate Battle!</button> -->
+       <button id="mageTurn" class="buttons">Mage Turn</button>
+       <button id="warriorTurn" class="buttons">Warrior Turn</button>
+       <button id="dragonTurn" class="buttons">Dragon Turn</button>
+      </div>
+    </div>
+    </section>
+    <p id="result">Good Luck in your battle!</p>
+    <section id="inGameCharacters">
+      <div id="goodGuys">
+        <div class="inGameDiv" id="mage">
+
+          <span id="mageDmgTaken">damage</span>
+
+          <img id="mageImg" src="./images/blank.png" alt="mageImg">
+
+          <span id="MageImgHp"></span>
+          <span id="MageImgMp"></span>
+
+        </div>
+        <div class="inGameDiv" id="warrior">
+
+          <span id="warriorDmgTaken">damage</span>
+
+          <img id="warriorImg" src="./images/blank.png" alt="warriorImg">
+
+          <span id="warriorImgHp"></span>
+
+        </div>
+      </div>
+      <div id="dragon">
+
+        <span id="dragonDmgTaken">damage</span>
+        
+        <span id="dragonImgHp"></span>
+        
+        <img id="dragonImg" src="./images/blank.png" alt="dragonImg">
+        
+
+      </div>
+    </section>
+    <div>
+
+    </div>
+    <section id="battleInfo">
+      <img id="fire" src="./images/fogoDoDragao.png" alt="">
+    </section>
+
+
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

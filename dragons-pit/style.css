@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+#settings {
+    display: flex;
+    flex-direction: column;
+}
+.characters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#header {
+    text-align: center;
+    margin-top: 10px;
+}
+#allCharacters {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    
+}
+.buttons {
+    margin: 5px;
+    max-width: 150px;
+    padding: 5px;
+    background-color: rgba(241, 193, 119, 0.822);
+    border-radius: 20%;
+    border: 0ch;
+    font-family: MedievalSharp;
+    font-weight: 400;
+    font-size: 17px;
+}
+#btnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+input {
+    max-width: 45px;
+    background-color: rgba(241, 193, 119, 0.822);
+}
+body {
+    background-color: blanchedalmond;
+    font-family: MedievalSharp;
+    background-image: url('http://cms.dragonfable.com/df/images/book3surewood.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: aliceblue;
+    height: 100%;
+    width: 100%;
+}
+h3 {
+    margin: 10px;
+}
+#title {
+    color: rgb(122, 8, 8);
+    font-weight: bolder;
+    font-size: 60px;
+}
+#inGameCharacters {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    align-items: flex-end;
+}
+#goodGuys {
+    display: flex;
+    
+}
+
+.ingameDiv{
+  display: flex;
+  flex-direction: column;
+}
+
+#dragon, #mage, #warrior {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#mageImg, #warriorImg, #warriorAttacking {
+    width: 70%;
+    height: 60%;
+}
+#dragonImg {
+    width: 99%;
+    height: 99%;
+}
+#dragon {
+    width: 35%;
+    height: 45%;
+}
+#fire {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    width: 50%;
+    height: 30%;
+    opacity: 0;
+    
+}
+#result {
+    justify-content: center;
+    font-size: 30px;
+    text-align: center;
+    opacity: 0;
+}
+#MageImgHp, #warriorImgHp, #dragonImgHp, #MageImgMp {
+  color: green;
+  font-weight: 600;
+  background-color: black;
+  border: 1px solid rgb(122, 8, 8);
+  border-radius: 20%;
+  padding: 5px;
+  opacity: 0;
+}
+#MageImgMp {
+    color: rgb(0, 132, 255);
+}
