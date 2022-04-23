@@ -49,11 +49,18 @@ const dragonImgHp = document.getElementById('dragonImgHp');
 
 const battleInfo = document.getElementById('battleInfo');
 const createBtn = document.getElementById('createBtn');
-const startBtn = document.getElementById('startBtn');
+// const startBtn = document.getElementById('startBtn');
 const mageTurnBtn = document.getElementById('mageTurn');
 const warriorTurnBtn = document.getElementById('warriorTurn');
 const dragonTurnBtn = document.getElementById('dragonTurn');
 const dragonFire = document.getElementById('fire');
+let inGameDiv = document.getElementById('inGameCharacters');
+mageDmgTaken.style.opacity = 0;
+warriorDmgTaken.style.opacity = 0;
+dragonDmgTaken.style.opacity = 0;
+mageTurnBtn.disabled = true;
+warriorTurnBtn.disabled = true;
+dragonTurnBtn.disabled = true;
 
   function addImages() {
     if (mage.healthPoints > 0) {
@@ -89,7 +96,12 @@ createBtn.addEventListener('click', () => {
     dragon.strength = parseInt(dragonStrInput.value);
     addImages();
     addVisualHpMp();
-})
+    mageTurnBtn.disabled = false;
+    warriorTurnBtn.disabled = false;
+    dragonTurnBtn.disabled = false;
+    document.getElementById('result').style.opacity = 1;
+  }
+)
   
   const battleMembers = { mage, warrior, dragon };
 
@@ -135,18 +147,18 @@ createBtn.addEventListener('click', () => {
       dragonTurn: (dragonDamage) => {
           let dragonHitMage = dragonDamage();
           let dragonHitWarrior = dragonDamage();
-          mage.healthPoints -= dragonHitMage;
-          warrior.healthPoints -= dragonHitWarrior;
+          if (mage.healthPoints != 'dead') mage.healthPoints -= dragonHitMage;
+          if (warrior.healthPoints > 0) warrior.healthPoints -= dragonHitWarrior;
           dragon.damage = dragonHitMage;
           dragon.damageWarrior = dragonHitWarrior;
-          if (mage.healthPoints <= 0 && warrior.healthPoints <= 0) return `The dragon slaughtered the party!`
-          if (mage.healthPoints <= 0) return `The dragon dealt ${dragon.damage} damage to the party! 
-          The mage is dead, and the warrior has ${warrior.healthPoints}!`
-          if (warrior.healthPoints <= 0) return `The dragon dealt ${dragon.damage} damage to the party! 
-          The mage now has ${mage.healthPoints}HP, and the warrior is dead!`
-          let dragonTurnInfo = `The dragon dealt ${dragon.damage} damage to the party! 
-  The mage now has ${mage.healthPoints}HP, and the warrior has ${warrior.healthPoints}HP!`
-          return dragonTurnInfo;
+  //         if (mage.healthPoints <= 0 && warrior.healthPoints <= 0) return `The dragon slaughtered the party!`
+  //         if (mage.healthPoints <= 0) return `The dragon dealt ${dragon.damage} damage to the party! 
+  //         The mage is dead, and the warrior has ${warrior.healthPoints}!`
+  //         if (warrior.healthPoints <= 0) return `The dragon dealt ${dragon.damage} damage to the party! 
+  //         The mage now has ${mage.healthPoints}HP, and the warrior is dead!`
+  //         let dragonTurnInfo = `The dragon dealt ${dragon.damage} damage to the party! 
+  // The mage now has ${mage.healthPoints}HP, and the warrior has ${warrior.healthPoints}HP!`
+          // return dragonTurnInfo;
       },
       turnResult: () => `Results:
       Mage: ${mage.healthPoints}HP ${mage.mana}MP
@@ -160,39 +172,124 @@ createBtn.addEventListener('click', () => {
 //   console.log(gameActions.dragonTurn(DragonDmg))
 //   console.log(gameActions.turnResult());
 
-startBtn.addEventListener('click', () => {
-    if (dragon.healthPoints <= 0) {
-      const info = document.createElement('p');
-      info.innerText = `The Dragon is dead! May the battle for loot start!`;
-      battleInfo.appendChild(info);
-      return;
+// startBtn.addEventListener('click', () => {
+//     if (dragon.healthPoints <= 0) {
+//       const info = document.createElement('p');
+//       info.innerText = `The Dragon is dead! May the battle for loot start!`;
+//       battleInfo.appendChild(info);
+//       return;
+//     }
+//     if (mage.healthPoints > 0 && warrior.healthPoints > 0) {
+//       const info = document.createElement('p');
+//       info.innerText = `${gameActions.mageTurn(mageDmgAndMana)},
+//       ${gameActions.warriorTurn(warriorDmg)},
+//       ${gameActions.dragonTurn(DragonDmg)},
+//       ${gameActions.turnResult()}`;
+//       battleInfo.appendChild(info);
+//       return;
+//     }
+//     if (mage.healthPoints <= 0) {
+//       const info = document.createElement('p');
+//       info.innerText = `${gameActions.warriorTurn(warriorDmg)},
+//       ${gameActions.dragonTurn(DragonDmg)},
+//       ${gameActions.turnResult()}`;
+//       battleInfo.appendChild(info);
+//       return;
+//     }
+//     if (warrior.healthPoints <= 0) {
+//       const info = document.createElement('p');
+//       info.innerText = `${gameActions.mageTurn(mageDmgAndMana)},
+//       ${gameActions.dragonTurn(DragonDmg)},
+//       ${gameActions.turnResult()}`;
+//       battleInfo.appendChild(info);
+//       return;
+//     }
+// });
+
+function createResetButton() {
+  const resetBtn = document.createElement('button');
+  resetBtn.innerText = 'Reset Game';
+  resetBtn.className = 'buttons';
+  document.getElementById('btnGameSettings').appendChild(resetBtn);
+  resetBtn.addEventListener('click', () => document.location.reload(false));
+}
+
+function checkWinners() {
+  if (mage.healthPoints === 'dead' && warrior.healthPoints === 'dead') {
+    const result = document.getElementById('result');
+    result.innerText = 'The Dragon slaughtered the party! Better luck next time!';
+    mageTurnBtn.disabled = true;
+    warriorTurnBtn.disabled = true;
+    dragonTurnBtn.disabled = true;
+    createResetButton();
+  }
+  if (dragon.healthPoints <= 0) {
+    const result = document.getElementById('result');
+    result.innerText = 'The Dragon is dead! Let the battle for loot begin!';
+    mageTurnBtn.disabled = true;
+    warriorTurnBtn.disabled = true;
+    dragonTurnBtn.disabled = true;
+    createResetButton();
+  }
+}
+
+function fadeImg(image, timer, opacit) {
+  setTimeout(() => image.style.opacity = opacit, timer);
+}
+
+function createMotion(image) {
+  let timer = 100;
+  let opacity = 1;
+  for (let index = 0; index < 15; index++) {
+    fadeImg(image, timer, opacity);
+    opacity -= 0.1;
+    timer += 100;
+  }
+}
+function checkSurvivors() {
+  if (mage.healthPoints <= 0) {
+    console.log(mage.healthPoints);
+    mageTurnBtn.disabled = true;
+    mageImg.src = './images/deadMage.png';
+    mageDmgTaken.innerText = 'The Dragon killed the mage!';
+    createMotion(mageImg);
+    setTimeout(() => {
+    mageDmgTaken.style.opacity = 0;
+    MageImgHp.style.opacity = 0;
+    MageImgMp.style.opacity = 0;
+    }, 1500);
+    mage.healthPoints = 'dead';
+  };
+  if (warrior.healthPoints <= 0) {
+    warriorTurnBtn.disabled = true;
+    warriorImg.src = './images/deadWarrior.png';
+    warriorDmgTaken.innerText = 'The Dragon killed the warrior!';
+    createMotion(warriorImg);
+    setTimeout(() => {
+    warriorDmgTaken.style.opacity = 0;
+    warriorImgHp.style.opacity = 0;
+    }, 1500);
+    warrior.healthPoints = 'dead';
+  };
+  if (dragon.healthPoints <= 0) {
+    dragonImg.src = './images/deadDragon.png'
+    dragonDmgTaken.innerText = 'The Dragon is dead!';
+    createMotion(dragonImg);
+    setTimeout(() => {
+    dragonDmgTaken.style.opacity = 0;
+    dragonImgHp.style.opacity = 0;
+    }, 1500);
+  };
+}
+
+function checkTurn() {
+  if (mageTurnBtn.disabled === true && warriorTurnBtn.disabled === true 
+    && dragonTurnBtn.disabled === true) {
+      mageTurnBtn.disabled = false;
+      warriorTurnBtn.disabled = false;
+      dragonTurnBtn.disabled = false;
     }
-    if (mage.healthPoints > 0 && warrior.healthPoints > 0) {
-      const info = document.createElement('p');
-      info.innerText = `${gameActions.mageTurn(mageDmgAndMana)},
-      ${gameActions.warriorTurn(warriorDmg)},
-      ${gameActions.dragonTurn(DragonDmg)},
-      ${gameActions.turnResult()}`;
-      battleInfo.appendChild(info);
-      return;
-    }
-    if (mage.healthPoints <= 0) {
-      const info = document.createElement('p');
-      info.innerText = `${gameActions.warriorTurn(warriorDmg)},
-      ${gameActions.dragonTurn(DragonDmg)},
-      ${gameActions.turnResult()}`;
-      battleInfo.appendChild(info);
-      return;
-    }
-    if (warrior.healthPoints <= 0) {
-      const info = document.createElement('p');
-      info.innerText = `${gameActions.mageTurn(mageDmgAndMana)},
-      ${gameActions.dragonTurn(DragonDmg)},
-      ${gameActions.turnResult()}`;
-      battleInfo.appendChild(info);
-      return;
-    }
-});
+}
 
 mageTurnBtn.addEventListener('click', () => {
   mageImg.src = './images/mageAttacking.png';
@@ -204,8 +301,15 @@ mageTurnBtn.addEventListener('click', () => {
     MageImgMp.innerText = `${mage.mana}MP`;
     dragonImgHp.innerText = `${dragon.healthPoints}HP`;
     dragonDmgTaken.innerText = `${mage.damage} damage!`;
+    dragonDmgTaken.style.opacity = 1;
   }, 700);
-  setTimeout(() => dragonImg.src = './images/dragon.png', 2000);
+    setTimeout(() => {
+    if (dragon.healthPoints > 0) dragonImg.src = './images/dragon.png'}, 2000);
+
+  setTimeout(() => checkSurvivors(), 2100);
+  setTimeout(() => checkWinners(), 2100);
+  mageTurnBtn.disabled = true;
+  checkTurn();
 })
 
 warriorTurnBtn.addEventListener('click', () => {
@@ -218,34 +322,33 @@ warriorTurnBtn.addEventListener('click', () => {
     warriorImgHp.innerText = `${warrior.healthPoints}HP`;
     dragonImgHp.innerText = `${dragon.healthPoints}HP`;
     dragonDmgTaken.innerText = `${warrior.damage} damage!`;
+    dragonDmgTaken.style.opacity = 1;
   }, 700)
+  setTimeout(checkSurvivors(), 2100);
+  setTimeout(checkWinners(), 2100);
+  warriorTurnBtn.disabled = true;
+  checkTurn();
 })
 
- function baforada(timer, opacit) {
-  setTimeout(() => dragonFire.style.opacity = opacit, timer);
-}
 dragonTurnBtn.addEventListener('click', () => {
   dragonImg.src = './images/esre.png';
   mageImg.src = './images/mageTakingDmg.png';
   warriorImg.src = './images/warriorTakingDmg.png';
-  // warriorImg.src = './images';
-  // mageimg.src = './images';
-  let timer = 100;
-  let opacity = 1;
-  for (let index = 0; index < 15; index++) {
-    baforada(timer, opacity);
-    opacity -= 0.1;
-    timer += 100;
-    console.log(timer, opacity);
-  }
+  createMotion(dragonFire);
   setTimeout(() => {
     dragonImg.src = './images/dragon.png';
-    warriorImg.src = './images/warrior.png';
-    mageImg.src = './images/mage.png';
+    if (warrior.healthPoints > 0) warriorImg.src = './images/warrior.png';
+    if (mage.healthPoints > 0) mageImg.src = './images/mage.png';
+    if (mage.healthPoints != 'dead') mageDmgTaken.style.opacity = 1;
+    if (warrior.healthPoints != 'dead') warriorDmgTaken.style.opacity = 1;
     gameActions.dragonTurn(DragonDmg);
     warriorImgHp.innerText = `${warrior.healthPoints}HP`;
     MageImgHp.innerText = `${mage.healthPoints}HP`;
     mageDmgTaken.innerText = `${dragon.damage} damage!`;
     warriorDmgTaken.innerText = `${dragon.damageWarrior} damage!`;
   }, 1500)
+  setTimeout(() => checkSurvivors(), 1500);
+  setTimeout(() => checkWinners(), 1500);
+  dragonTurnBtn.disabled = true;
+  checkTurn();
 })

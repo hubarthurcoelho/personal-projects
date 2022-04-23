@@ -104,3 +104,9 @@ h3 {
     opacity: 0;
     
 }
+#result {
+    justify-content: center;
+    font-size: 30px;
+    text-align: center;
+    opacity: 0;
+}
