@@ -178,7 +178,7 @@ function checkWinners() {
   }
   if (dragon.healthPoints <= 0) {
     const result = document.getElementById("result");
-    result.innerText = "The Dragon is dead! Let the battle for loot begin!";
+    result.innerText = "The Dragon is dead!";
     mageTurnBtn.disabled = true;
     warriorTurnBtn.disabled = true;
     dragonTurnBtn.disabled = true;
